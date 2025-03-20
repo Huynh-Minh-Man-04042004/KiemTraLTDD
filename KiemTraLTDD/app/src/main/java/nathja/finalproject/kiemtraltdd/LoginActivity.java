@@ -6,13 +6,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import nathja.finalproject.kiemtraltdd.api.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin;
     private ImageView ivBtnLogin;
-    private ApiService apiService;
+    private PrefManager prefManager;
+    private APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,13 @@ public class LoginActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.editTextUsername);
         etPassword = findViewById(R.id.editTextPassword);
-        ivBtnLogin = findViewById(R.id.imageView2);
-
-        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        ivBtnLogin = findViewById(R.id.imageViewLogin);
+        prefManager = new PrefManager(this);
+        apiService = RetrofitClient.getRetrofit().create(APIService.class);
+        // Nếu đã lưu thông tin đăng nhập, tự động chuyển đến MainActivity
+        if (!prefManager.isUserLoggedOut()) {
+            startMainActivity();
+        }
 
         ivBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,8 +47,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        TextView tvRegister = findViewById(R.id.tvRegister);
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Kết thúc LoginActivity để không quay lại màn hình đăng nhập khi nhấn Back
+    }
     private void loginUser() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -65,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                         // Chuyển sang MainActivity sau khi hiển thị Toast xong
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            LoginResponse loginResponse = response.body(); // Tạo instance
+                            String token = loginResponse.getData().getToken();
+                            intent.putExtra("TOKEN", token); // Gửi token qua Intent
                             startActivity(intent);
                             finish();
                         }, 500); // Delay 1 giây để Toast hiển thị rõ

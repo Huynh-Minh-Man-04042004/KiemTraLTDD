@@ -1,5 +1,7 @@
 package nathja.finalproject.kiemtraltdd.model;
 
+import nathja.finalproject.kiemtraltdd.Category;
+
 public class Product {
     private int id;
     private String name;

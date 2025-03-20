@@ -20,6 +20,10 @@ public class IntroActivity extends AppCompatActivity {
         prefManager = new PrefManager(this);
         ConstraintLayout btnStart = findViewById(R.id.btnStart);
 
+        if (prefManager.getToken() != "") {
+            startActivity(new Intent(IntroActivity.this, MainActivity.class));
+            finish(); // Đóng IntroActivity
+        }
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

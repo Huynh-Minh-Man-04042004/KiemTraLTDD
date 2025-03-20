@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.GridView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private APIService apiService;
     List<Product> lastProductList;
     private PrefManager prefManager;
+    private TextView name;
+    private String token;
 
     // Khai báo Adapter
     CategoryAdapter categoryAdapter;
@@ -41,11 +45,23 @@ public class MainActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getRetrofitInstance().create(APIService.class);
 
+        name = findViewById(R.id.textView4);
+        prefManager = new PrefManager(this);
         //anh xa
         gridView = findViewById(R.id.gridView);
+        token = getIntent().getStringExtra("TOKEN") != null
+                ? getIntent().getStringExtra("TOKEN")
+                : prefManager.getToken();
+        fetchProfile(token);
+        if (token != null) {
+            Log.d("MainActivity", "Token nhận được: " + token);
+        } else {
+            Log.e("MainActivity", "Không nhận được token!");
+        }
+
+
 
         loadLastProduct();
-        prefManager = new PrefManager(this);
         Button btnLogout = findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +76,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void AnhXa() {
         rcCate = (RecyclerView) findViewById(R.id.recyclerViewCategoryList);
+    }
+    private void fetchProfile(String token) {
+        APIService apiService = RetrofitClient.getRetrofitInstance().create(APIService.class);
+        Call<ProfileResponse> call = apiService.getProfile("Bearer " + token);
+
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String ten = response.body().getName();
+                    name.setText(ten); // Hiển thị tên lên TextView
+                } else {
+                    Toast.makeText(MainActivity.this, "Không thể lấy thông tin người dùng!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                Log.e("MainActivity", "Lỗi kết nối: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Lỗi kết nối!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void GetCategory() {

@@ -12,11 +12,12 @@ public class PrefManager {
     }
 
     // Lưu thông tin đăng nhập
-    public void saveLoginDetails(String username, String password) {
+    public void saveLoginDetails(String username, String password, String token) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Username", username);
         editor.putString("Password", password);
+        editor.putString("Token", token);
         editor.apply();
     }
 
@@ -28,6 +29,11 @@ public class PrefManager {
     public String getPassword() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         return sharedPreferences.getString("Password", "");
+    }
+
+    public String getToken() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("Token", "");
     }
 
     // Kiểm tra xem người dùng đã đăng xuất chưa

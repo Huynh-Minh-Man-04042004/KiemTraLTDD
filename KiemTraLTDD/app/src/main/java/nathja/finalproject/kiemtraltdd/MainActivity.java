@@ -1,8 +1,11 @@
 package nathja.finalproject.kiemtraltdd;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.GridView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private ApiService apiService;
     List<Product> lastProductList;
+    private PrefManager prefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.gridView);
 
         loadLastProduct();
+        prefManager = new PrefManager(this);
+        Button btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prefManager.logout();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     private void loadLastProduct() {
@@ -39,21 +55,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    lastProductList = response.body(); // Nhận danh sách sản phẩm
+                    lastProductList = response.body(); // Nh?n danh s�ch s?n ph?m
 
-                    // Cập nhật adapter với dữ liệu mới
+                    // C?p nh?t adapter v?i d? li?u m?i
                     productAdapter = new ProductAdapter(MainActivity.this, lastProductList);
                     gridView.setAdapter(productAdapter);
 
-                    productAdapter.notifyDataSetChanged(); // Cập nhật UI
+                    productAdapter.notifyDataSetChanged(); // C?p nh?t UI
                 } else {
-                    Log.e("API_ERROR", "Lỗi API: " + response.code());
+                    Log.e("API_ERROR", "L?i API: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e("API_ERROR", "Lỗi kết nối: " + t.getMessage());
+                Log.e("API_ERROR", "L?i k?t n?i: " + t.getMessage());
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.kiemtraltdd;
+package nathja.finalproject.kiemtraltdd;
 
 import android.content.Context;
 import android.content.SharedPreferences;

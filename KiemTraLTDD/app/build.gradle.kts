@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation("androidx.core:core-ktx:1.12.0")
 }

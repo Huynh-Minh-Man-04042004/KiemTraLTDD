@@ -10,12 +10,12 @@ public class Category {
     private String name;
 
     @SerializedName("imageUrl")
-    private String imageURL;
+    private String imageUrl;
 
     public Category(int id, String name, String imageURL) {
         this.id = id;
         this.name = name;
-        this.imageURL = imageURL;
+        this.imageUrl = imageURL;
     }
 
     public int getId() {
@@ -35,10 +35,10 @@ public class Category {
     }
 
     public String getImageURL() {
-        return imageURL;
+        return imageUrl;
     }
 
     public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+        this.imageUrl = imageURL;
     }
 }

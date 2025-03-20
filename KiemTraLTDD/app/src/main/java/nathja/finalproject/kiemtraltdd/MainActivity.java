@@ -43,18 +43,13 @@ public class MainActivity extends AppCompatActivity {
     private void GetCategory() {
         // Gọi Interface trong APIService
         apiService = RetrofitClient.getRetrofit().create(APIService.class);
-        Log.d("API_CALL", "Calling API...");
-        Toast.makeText(MainActivity.this, "calling api", Toast.LENGTH_LONG).show();
 
         apiService.getCategoriesAll().enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                Log.d("API_CALL", "Response received!");
-                Toast.makeText(MainActivity.this, "in function", Toast.LENGTH_LONG).show();
 
                 if (response.isSuccessful()) {
                     categoryList = response.body(); // nhận mảng
-                    Toast.makeText(MainActivity.this, "Total categories: " + categoryList.size(), Toast.LENGTH_LONG).show();
 
                     // Khởi tạo Adapter
                     categoryAdapter = new CategoryAdapter(MainActivity.this, categoryList);
@@ -65,11 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     rcCate.setLayoutManager(layoutManager);
                     rcCate.setAdapter(categoryAdapter);
                     categoryAdapter.notifyDataSetChanged();
-                    Log.d("API_RESPONSE", "Data: " + categoryList);
 
                 } else {
                     int statusCode = response.code();
-                    Log.e("API_RESPONSE", "Failed: " + response.code());
                 }
             }
 

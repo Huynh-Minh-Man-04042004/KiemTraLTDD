@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "nathja.finalproject.kiemtraltdd"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -42,7 +42,15 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.retrofit)
+    implementation(libs.gsonConverter)
+    implementation(libs.okhttpLoggingInterceptor)
+    implementation(libs.gson)
+    implementation(libs.glide)
+    implementation(libs.commons.io)
+    annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("androidx.startup:startup-runtime:1.1.1")
 }

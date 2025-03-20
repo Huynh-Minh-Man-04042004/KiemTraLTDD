@@ -12,15 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KiemTraLTDD"
         tools:targetApi="31">
-        <activity 
-            android:name=".IntroActivity"
-            android:exported="true"> 
         <activity
-            android:name=".SignUpActivity"
-            android:exported="true" >
+            android:name=".IntroActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

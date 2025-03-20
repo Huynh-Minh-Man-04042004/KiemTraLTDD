@@ -55,21 +55,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    lastProductList = response.body(); // Nh?n danh sách s?n ph?m
+                    lastProductList = response.body(); //
 
                     // C?p nh?t adapter v?i d? li?u m?i
                     productAdapter = new ProductAdapter(MainActivity.this, lastProductList);
                     gridView.setAdapter(productAdapter);
 
-                    productAdapter.notifyDataSetChanged(); // C?p nh?t UI
+                    productAdapter.notifyDataSetChanged(); //
                 } else {
-                    Log.e("API_ERROR", "L?i API: " + response.code());
+                    Log.e("API_ERROR", "error " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e("API_ERROR", "L?i k?t n?i: " + t.getMessage());
+                Log.e("API_ERROR", ": " + t.getMessage());
             }
         });
     }

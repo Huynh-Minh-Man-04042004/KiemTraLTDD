@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "nathja.finalproject.kiemtraltdd"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "nathja.finalproject.kiemtraltdd"

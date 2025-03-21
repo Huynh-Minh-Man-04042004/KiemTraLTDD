@@ -22,7 +22,7 @@
 
 ## Links
 - **📂 Backend Repository**: [GitHub Repository](https://github.com/In-University/mail-service)
-- **🌐 API Demo**: [API Demo Link](https://mkhoavo.space/)
+- **🌐 API Demo**: [API Demo Link](https://mkhoavo.space/swagger-ui/index.html)
 
 ---
 

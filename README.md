@@ -23,7 +23,7 @@
 ## Links
 - **📂 Backend Repository**: [GitHub Repository](https://github.com/In-University/mail-service)
 - **🌐 API Demo**: [API Demo Link](https://mkhoavo.space/swagger-ui/index.html)
-
+- **📑 Task Assignment**: [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1FuxAyUuyj-BLDK6cFYTpVS1za_jmz6ph_Gy2b88s4Js/edit?gid=1965395254#gid=1965395254)
 ---
 
 ## 🪄UI Designs

@@ -37,7 +37,10 @@
 ### 3. Register Page
 ![Giao diện trang Register](https://drive.google.com/uc?export=view&id=1xXLkGqfFjJzrScezcGMPsHkev8nr2as3)
 
-### 4. Main Page
+### 4. Validate OTP Page
+![Giao diện trang xác thực OTP](https://drive.google.com/uc?export=view&id=1pqD5ITrOxZv17TU4xPXVRtot-vxoTzQZ)
+
+### 5. Main Page
 ![Giao diện trang Main](https://drive.google.com/uc?export=view&id=1p_I_vKwcb0Tnxo3V_zJkkrj4ZUWMIDMM)
 
 ---

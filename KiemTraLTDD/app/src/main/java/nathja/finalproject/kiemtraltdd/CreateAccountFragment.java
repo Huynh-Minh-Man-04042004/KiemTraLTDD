@@ -86,7 +86,7 @@ public class CreateAccountFragment extends Fragment {
         String username = edtUsername.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
 
-        User request = new User(name, username, password, email);
+        User request = new User(name, email , password);
         apiService.registerUser(request).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
